@@ -43,15 +43,6 @@ homeRoute.get(function(req, res) {
   res.json({ message: 'Nothing here. Go to /users or /tasks to play with the API.', data: []});
 });
 
-
-// post request, create object the field, save to database, save
-// user.save(function(
-// check for user.email == null user.name == null
-// else if User.find({email: {$exist: true}})
-// else {201 create the user}
-//))
-// UserfindByIdAndRemove(userID, function (xxx))
-
 //Llama route
 var llamaRoute = router.route('/llamas');
 
@@ -86,8 +77,7 @@ usersRoute.get(function(req, res) {
       		count = eval("("+req.query.count+")");
         User.find(function(err, users) {
             if (err) {
-                res.status(500).json({message: 'internal server error hehehe!', data: []})
-                res.send(err);
+                res.status(500).json({message: 'Error in getting the users', data: []})
             }
             else {
               if(users === null)
@@ -132,7 +122,7 @@ var userRoute = router.route('/users/:userId');
 userRoute.get(function(req,res) {
   User.findById(req.params.userId, function (err, user) {
     if(err) {
-      res.send(err);
+      res.status(500).json({message: "Error in getting user", data: []});
     } else {
       if(user === null)
         res.status(404).json({message: "User not found", data: []});
@@ -146,7 +136,7 @@ userRoute.get(function(req,res) {
 userRoute.put(function(req,res) {
   User.findById(req.params.userId, function(err, user) {
     if(err)
-      res.status(500).json({message: "buzhidao", data: []});
+      res.status(500).json({message: "Error in finding the user", data: []});
     else {
       if(user === null)
         res.status(404).json({message: "User not found", data: []});
@@ -171,7 +161,7 @@ userRoute.put(function(req,res) {
 userRoute.delete(function(req,res) {
   User.findById(req.params.userId, function(err, user) {
     if(err) {
-      res.status(500).json({message: "buzhidao", data: []});
+      res.status(500).json({message: "Error in finding the user", data: []});
     } else {
       if(user === null)
         res.status(404).json({message:"User not found", data:[]});
@@ -180,7 +170,7 @@ userRoute.delete(function(req,res) {
             _id: req.params.userId
           }, function(err,deletedUser){
             if(err)
-                res.send(err);
+                res.status(500).json({message: "Error in deleting the user", data: []});
             else
               res.status(200).json({message:"OK",data: deletedUser});
           });
@@ -213,8 +203,7 @@ tasksRoute.get(function(req, res) {
       		count = eval("("+req.query.count+")");
         Task.find(function(err, tasks) {
             if (err) {
-                res.status(500).json({message: 'internal server error hehehe!', data: []})
-                res.send(err);
+                res.status(500).json({message: 'Error in getting the task.', data: []})
             }
             else {
               if(tasks === null)
@@ -258,7 +247,7 @@ var taskRoute = router.route('/tasks/:taskId');
 taskRoute.get(function(req,res) {
   Task.findById(req.params.taskId, function (err, task) {
     if(err) {
-      res.send(err);
+      res.status(500).json({message: "Error finding the task", data: []});
     } else {
       if(task === null)
         res.status(404).json({message: "Task not found", data: []});
@@ -272,7 +261,7 @@ taskRoute.get(function(req,res) {
 taskRoute.put(function(req,res) {
   Task.findById(req.params.taskId, function(err, task) {
     if(err)
-      res.status(500).json({message: "buzhidao", data: []});
+      res.status(500).json({message: "Error in finding the task", data: []});
     else {
       if(task === null)
         res.status(404).json({message: "Task not found", data: []});
@@ -287,7 +276,7 @@ taskRoute.put(function(req,res) {
         // save the user
         task.save(function(err) {
           if(err)
-            res.status(500).json({message: "buzhidao222", data: []});
+            res.status(500).json({message: "Error in saving the task.", data: []});
           else
             res.status(200).json({message: "Task updated", data: task});
         })
@@ -299,7 +288,7 @@ taskRoute.put(function(req,res) {
 taskRoute.delete(function(req,res) {
   Task.findById(req.params.taskId, function(err, task) {
     if(err) {
-      res.status(500).json({message: "buzhidao", data: []});
+      res.status(500).json({message: "Error in getting the task", data: []});
     } else {
       if(task === null)
         res.status(404).json({message:"Task not found", data:[]});
@@ -308,7 +297,7 @@ taskRoute.delete(function(req,res) {
             _id: req.params.taskId
           }, function(err,deletedTask){
             if(err)
-                res.send(err);
+                res.status(500).json({message: "Error in removing the task", data: []});
             else
               res.status(200).json({message:"OK",data: deletedTask});
           });
