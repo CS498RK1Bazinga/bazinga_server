@@ -94,8 +94,13 @@ usersRoute.post(function(req, res) {
         var user = new User();      // create a new instance of the Bear model
         user.name = req.body.name;  // set the bears name (comes from the request)
         user.email = req.body.email;
-        user.dateCreated = new Date();
-        user.pendingTasks = [];
+        user.password = req.body.password;
+        user.phoneNumber = req.body.phoneNumber;
+        user.gender = req.body.gender;
+        user.image = req.body.image;
+        user.attending = req.body.attending;
+        user.hosting = req.body.hosting;
+        user.history = req.body.history;
         // save the user and check for errors
         user.save(function(err) {
             if (err) {
@@ -143,10 +148,15 @@ userRoute.put(function(req,res) {
         res.status(404).json({message: "User not found", data: []});
       else {
 
-        user.name = req.body.name;
-        user.email = req.body.email;
-        user.pendingTasks = req.body.pendingTasks;
-
+          user.name = req.body.name;  // set the bears name (comes from the request)
+          user.email = req.body.email;
+          user.password = req.body.password;
+          user.phoneNumber = req.body.phoneNumber;
+          user.gender = req.body.gender;
+          user.image = req.body.image;
+          user.attending = req.body.attending;
+          user.hosting = req.body.hosting;
+          user.history = req.body.history;
         // save the user
         user.save(function(err) {
           if(err)
@@ -218,13 +228,14 @@ eventsRoute.get(function(req, res) {
 // events post
 eventsRoute.post(function(req, res) {
         var event = new Event();      // create a new instance of the Bear model
-        event.name = req.body.name;  // set the bears name (comes from the request)
-        event.deadline = req.body.deadline;
-        event.dateCreated = new Date();
-        event.assignedUser = req.body.assignedUser;
-        event.assignedUserName = req.body.assignedUserName;
-        event.completed = req.body.completed;
+        event.time = req.body.time;  // set the bears name (comes from the request)
+        event.place = req.body.place;
         event.description = req.body.description;
+        event.host = req.body.host;
+        event.attending = req.body.attending;
+        event.completed = req.body.completed;
+        event.foodstyle = req.body.foodstyle;
+        event.occassion = req.body.occassion;
 
         // save the user and check for errors
         event.save(function(err) {
@@ -267,12 +278,14 @@ eventRoute.put(function(req,res) {
       if(event === null)
         res.status(404).json({message: "Event not found", data: []});
       else {
-        event.name = req.body.name;  // set the bears name (comes from the request)
-        event.deadline = req.body.deadline;
-        event.assignedUser = req.body.assignedUser;
-        event.assignedUserName = req.body.assignedUserName;
-        event.completed = req.body.completed;
-        event.description = req.body.description;
+          event.time = req.body.time;  // set the bears name (comes from the request)
+          event.place = req.body.place;
+          event.description = req.body.description;
+          event.host = req.body.host;
+          event.attending = req.body.attending;
+          event.completed = req.body.completed;
+          event.foodstyle = req.body.foodstyle;
+          event.occassion = req.body.occassion;
 
         // save the user
         event.save(function(err) {
