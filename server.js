@@ -3,6 +3,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var User = require('./models/user');
 var Task = require('./models/task');
+var Event = require('./models/event');
 var bodyParser = require('body-parser');
 var router = express.Router();
 
@@ -40,7 +41,7 @@ app.use('/api', router);
 var homeRoute = router.route('/');
 
 homeRoute.get(function(req, res) {
-  res.json({ message: 'Nothing here. Go to /users or /tasks to play with the API.', data: []});
+  res.json({ message: 'Nothing here. Go to /users or /events to play with the API.', data: []});
 });
 
 //Llama route
@@ -179,10 +180,10 @@ userRoute.delete(function(req,res) {
   })
 });
 
-var tasksRoute = router.route('/tasks');
+var eventsRoute = router.route('/events');
 
-// tasks get
-tasksRoute.get(function(req, res) {
+// events get
+eventsRoute.get(function(req, res) {
         var where = null;
         var sort = null;
         var select = null;
@@ -201,105 +202,105 @@ tasksRoute.get(function(req, res) {
       		limit = eval("("+req.query.limit+")");
       	if (req.query.count)
       		count = eval("("+req.query.count+")");
-        Task.find(function(err, tasks) {
+        Event.find(function(err, events) {
             if (err) {
-                res.status(500).json({message: 'Error in getting the task.', data: []})
+                res.status(500).json({message: 'Error in getting the event.', data: []})
             }
             else {
-              if(tasks === null)
-                res.status(404).json({message: "Tasks not found", data: []});
+              if(events === null)
+                res.status(404).json({message: "Events not found", data: []});
               else
-                res.status(200).json({message: 'OK', data: tasks});
+                res.status(200).json({message: 'OK', data: events});
             }
         }).find(where).sort(sort).select(select).skip(skip).limit(limit).count(count);
     });
 
-// tasks post
-tasksRoute.post(function(req, res) {
-        var task = new Task();      // create a new instance of the Bear model
-        task.name = req.body.name;  // set the bears name (comes from the request)
-        task.deadline = req.body.deadline;
-        task.dateCreated = new Date();
-        task.assignedUser = req.body.assignedUser;
-        task.assignedUserName = req.body.assignedUserName;
-        task.completed = req.body.completed;
-        task.description = req.body.description;
+// events post
+eventsRoute.post(function(req, res) {
+        var event = new Event();      // create a new instance of the Bear model
+        event.name = req.body.name;  // set the bears name (comes from the request)
+        event.deadline = req.body.deadline;
+        event.dateCreated = new Date();
+        event.assignedUser = req.body.assignedUser;
+        event.assignedUserName = req.body.assignedUserName;
+        event.completed = req.body.completed;
+        event.description = req.body.description;
 
         // save the user and check for errors
-        task.save(function(err) {
+        event.save(function(err) {
             if (err) {
               res.status(500).json({message: '' + err, data: []});
             } else {
-              res.status(201).json({ message: 'Task added', data: task});
+              res.status(201).json({ message: 'Event added', data: event});
             }
         });
     });
 
-tasksRoute.options(function(req, res){
+eventsRoute.options(function(req, res){
       res.writeHead(200);
       res.end();
 });
 
-// task route
-var taskRoute = router.route('/tasks/:taskId');
+// event route
+var eventRoute = router.route('/events/:eventId');
 
-// task get
-taskRoute.get(function(req,res) {
-  Task.findById(req.params.taskId, function (err, task) {
+// event get
+eventRoute.get(function(req,res) {
+  Event.findById(req.params.eventId, function (err, event) {
     if(err) {
-      res.status(500).json({message: "Error finding the task", data: []});
+      res.status(500).json({message: "Error finding the event", data: []});
     } else {
-      if(task === null)
-        res.status(404).json({message: "Task not found", data: []});
+      if(event === null)
+        res.status(404).json({message: "Event not found", data: []});
       else
-        res.status(200).json({ message: 'OK', data: task});
+        res.status(200).json({ message: 'OK', data: event});
     }
   })
 });
 
-// task put
-taskRoute.put(function(req,res) {
-  Task.findById(req.params.taskId, function(err, task) {
+// event put
+eventRoute.put(function(req,res) {
+  Event.findById(req.params.eventId, function(err, event) {
     if(err)
-      res.status(500).json({message: "Error in finding the task", data: []});
+      res.status(500).json({message: "Error in finding the event", data: []});
     else {
-      if(task === null)
-        res.status(404).json({message: "Task not found", data: []});
+      if(event === null)
+        res.status(404).json({message: "Event not found", data: []});
       else {
-        task.name = req.body.name;  // set the bears name (comes from the request)
-        task.deadline = req.body.deadline;
-        task.assignedUser = req.body.assignedUser;
-        task.assignedUserName = req.body.assignedUserName;
-        task.completed = req.body.completed;
-        task.description = req.body.description;
+        event.name = req.body.name;  // set the bears name (comes from the request)
+        event.deadline = req.body.deadline;
+        event.assignedUser = req.body.assignedUser;
+        event.assignedUserName = req.body.assignedUserName;
+        event.completed = req.body.completed;
+        event.description = req.body.description;
 
         // save the user
-        task.save(function(err) {
+        event.save(function(err) {
           if(err)
-            res.status(500).json({message: "Error in saving the task.", data: []});
+            res.status(500).json({message: "Error in saving the event.", data: []});
           else
-            res.status(200).json({message: "Task updated", data: task});
+            res.status(200).json({message: "Event updated", data: event});
         })
       }
   }})
 });
 
-// task delete
-taskRoute.delete(function(req,res) {
-  Task.findById(req.params.taskId, function(err, task) {
+// event delete
+eventRoute.delete(function(req,res) {
+  Event.findById(req.params.eventId, function(err, event) {
     if(err) {
-      res.status(500).json({message: "Error in getting the task", data: []});
+      res.status(500).json({message: "Error in getting the event", data: []});
     } else {
-      if(task === null)
-        res.status(404).json({message:"Task not found", data:[]});
+      if(event === null)
+        res.status(404).json({message:"Event not found", data:[]});
       else {
-          Task.remove({
-            _id: req.params.taskId
-          }, function(err,deletedTask){
+          Event.remove({
+            _id: req.params.eventId
+          }, function(err,deletedEvent){
             if(err)
-                res.status(500).json({message: "Error in removing the task", data: []});
+                res.status(500).json({message: "Error in removing the event", data: []});
             else
-              res.status(200).json({message:"OK",data: deletedTask});
+              res.status(200).json({message:"OK",data: deletedEvent});
           });
       }
     }
