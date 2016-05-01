@@ -3,6 +3,7 @@ var Schema       = mongoose.Schema;
 
 var EventSchema   = new Schema({
     time: {type: Date, required:[true, 'Time required']},
+    hour: {type: Date, required:[true,'Hours required']},
     place: {type: String, required:[true, 'Place required']},
     description: {type: String, default: ''},
     host: {type: String, required:[true, 'Host required']},,
