@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 
 //replace this with your Mongolab URL
-mongoose.connect('mongodb://Maddieee:Maddie4869@ds013221.mlab.com:13221/mp4',function(err) {
+mongoose.connect('mongodb://xotinc:12james3@ds047345.mlab.com:47345/cs498rk',function(err) {
   if(err)
     console.log(err);
   else
@@ -228,7 +228,9 @@ eventsRoute.get(function(req, res) {
 // events post
 eventsRoute.post(function(req, res) {
         var event = new Event();      // create a new instance of the Bear model
+        event.name = req.body.name;
         event.time = req.body.time;  // set the bears name (comes from the request)
+        event.hour = req.body.hour;
         event.place = req.body.place;
         event.description = req.body.description;
         event.host = req.body.host;
@@ -236,7 +238,7 @@ eventsRoute.post(function(req, res) {
         event.completed = req.body.completed;
         event.foodstyle = req.body.foodstyle;
         event.occassion = req.body.occassion;
-
+        
         // save the user and check for errors
         event.save(function(err) {
             if (err) {
@@ -251,6 +253,9 @@ eventsRoute.options(function(req, res){
       res.writeHead(200);
       res.end();
 });
+
+
+
 
 // event route
 var eventRoute = router.route('/events/:eventId');
