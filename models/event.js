@@ -3,10 +3,11 @@ var Schema       = mongoose.Schema;
 
 var EventSchema   = new Schema({
 	name: {type:String, required:[true, 'Name required']},
-    time: {type: Date, required:[true, 'Time required']},
-    hour: {type: Date, required:[true,'Hours required']},
+    time: {type: String, required:[true, 'Time required']},
+    hour: {type: String, required:[true,'Hours required']},
     place: {type: String, required:[true, 'Place required']},
     description: {type: String, default: ''},
+    maximumLimit:{type: String, default: '0'},
     host: {type: String, required:[true, 'Host required']},
     attending: {type: [String], default: []},
     completed: {type: Boolean, default: false},
