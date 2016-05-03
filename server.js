@@ -102,18 +102,25 @@ usersRoute.post(function(req, res) {
         user.hosting = req.body.hosting;
         user.history = req.body.history;
         // save the user and check for errors
-        user.save(function(err) {
+    User.find({email: req.body.email}, function(err, user) {
+
+        if (user.length) {
+            res.status(500).send({message: "Email already exists", data: []});
+            return;
+        }
+        user.save(function (err) {
             if (err) {
-              if(err.code == 11000) {
-                  res.status(500).json({message: 'This email already exists', data: []});
-              }
-              else {
-                res.status(500).json({message: '' + err, data: []});
-              }
+                if (err.code == 11000) {
+                    res.status(500).json({message: 'This email already exists', data: []});
+                }
+                else {
+                    res.status(500).json({message: '' + err, data: []});
+                }
             } else {
-              res.status(201).json({ message: 'User added', data: user});
+                res.status(201).json({message: 'User added', data: user});
             }
         });
+    });
     });
 // users option
 usersRoute.options(function(req, res){
