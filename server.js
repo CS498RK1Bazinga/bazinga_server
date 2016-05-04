@@ -241,6 +241,7 @@ eventsRoute.post(function(req, res) {
         event.place = req.body.place;
         event.description = req.body.description;
         event.host = req.body.host;
+        event.hostId = req.body.hostId;
         event.attending = req.body.attending;
         event.completed = req.body.completed;
         event.foodstyle = req.body.foodstyle;

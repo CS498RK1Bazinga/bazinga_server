@@ -9,6 +9,7 @@ var EventSchema   = new Schema({
     description: {type: String, default: ''},
     maximumLimit:{type: String, default: '0'},
     host: {type: String, required:[true, 'Host required']},
+    hostId: {type: String, required:[true, 'Host id required']},
     attending: {type: [String], default: []},
     completed: {type: Boolean, default: false},
     foodstyle: {type: String, default: ''},
