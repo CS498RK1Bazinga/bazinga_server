@@ -156,16 +156,16 @@ userRoute.put(function(req,res) {
         res.status(404).json({message: "User not found", data: []});
       else {
 
-          user.name = req.body.name;  // set the bears name (comes from the request)
-          user.email = req.body.email;
-          user.password = req.body.password;
-          user.phoneNumber = req.body.phoneNumber;
-          user.gender = req.body.gender;
-          user.image = req.body.image;
-          user.attending = req.body.attending;
-          user.hosting = req.body.hosting;
-          user.history = req.body.history;
-          user.following = req.body.following;
+          user.local.name = req.body.name;  // set the bears name (comes from the request)
+          user.local.email = req.body.email;
+          user.local.password = req.body.password;
+          user.local.phoneNumber = req.body.phoneNumber;
+          user.local.gender = req.body.gender;
+          user.local.image = req.body.image;
+          user.local.attending = req.body.attending;
+          user.local.hosting = req.body.hosting;
+          user.local.history = req.body.history;
+          user.local.following = req.body.following;
         // save the user
         user.save(function(err) {
           if(err)
