@@ -13,6 +13,7 @@ var UserSchema   = new Schema({
   attending: {type: [String], default: []},
   hosting: {type: [String], default: []},
   history: {type: [String], default: []},
+  following: {type: [String], default: []}
 });
 
 module.exports = mongoose.model('User', UserSchema);

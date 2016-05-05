@@ -101,6 +101,7 @@ usersRoute.post(function(req, res) {
         user.attending = req.body.attending;
         user.hosting = req.body.hosting;
         user.history = req.body.history;
+        user.following = req.body.following;
         // save the user and check for errors
     User.find({email: req.body.email}, function(err, user) {
 
@@ -164,6 +165,7 @@ userRoute.put(function(req,res) {
           user.attending = req.body.attending;
           user.hosting = req.body.hosting;
           user.history = req.body.history;
+          user.following = req.body.following;
         // save the user
         user.save(function(err) {
           if(err)
