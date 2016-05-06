@@ -4,7 +4,7 @@ var Schema       = mongoose.Schema;
 var EventSchema   = new Schema({
 	name: {type:String, required:[true, 'Name required']},
     time: {type: Date, required:[true, 'Time required']},
-    hour: {type: String, required:[true,'Hours required']},
+    hour: {type: Date, required:[true,'Hours required']},
     place: {type: String, required:[true, 'Place required']},
     description: {type: String, default: ''},
     maximumLimit:{type: String, default: '0'},

@@ -294,8 +294,11 @@ eventRoute.put(function(req,res) {
       if(event === null)
         res.status(404).json({message: "Event not found", data: []});
       else {
+          event.name = req.body.name;
           event.time = req.body.time;  // set the bears name (comes from the request)
           event.place = req.body.place;
+          event.hour = req.body.hour;
+          event.maximumLimit = req.body.maximumLimit;
           event.description = req.body.description;
           event.host = req.body.host;
           event.attending = req.body.attending;
