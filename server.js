@@ -249,6 +249,7 @@ eventsRoute.post(function(req, res) {
         event.foodstyle = req.body.foodstyle;
         event.occassion = req.body.occassion;
         event.maximumLimit = req.body.maximumLimit;
+        event.image = req.body.image;
 
         // save the user and check for errors
         event.save(function(err) {
@@ -305,6 +306,7 @@ eventRoute.put(function(req,res) {
           event.completed = req.body.completed;
           event.foodstyle = req.body.foodstyle;
           event.occassion = req.body.occassion;
+          event.image = req.body.image;
 
         // save the user
         event.save(function(err) {

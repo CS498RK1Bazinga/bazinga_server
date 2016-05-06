@@ -13,7 +13,8 @@ var EventSchema   = new Schema({
     attending: {type: [String], default: []},
     completed: {type: Boolean, default: false},
     foodstyle: {type: String, default: ''},
-    occassion: {type: String, default: ''}
+    occassion: {type: String, default: ''},
+    image: {type: String, default: 'http://www.comohotels.com/metropolitanbangkok/sites/default/files/styles/background_image/public/images/background/metbkk_bkg_nahm_restaurant.jpg'},
 });
 
 module.exports = mongoose.model('Event', EventSchema);
